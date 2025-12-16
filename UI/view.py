@@ -42,12 +42,15 @@ class View:
         # Riga 2
         self.txt_soglia = ft.TextField(label="Soglia Peso", width=200)
         self.pulsante_conta_archi = ft.ElevatedButton("Conta Archi", width=200,
-                                                 on_click=self.controller.handle_conta_archi if self.controller else None)
+                                                 on_click=self.controller.handle_conta_archi if self.controller else None,disabled=True)
         row2 = ft.Row([self.txt_soglia, self.pulsante_conta_archi], alignment=ft.MainAxisAlignment.CENTER)
         self.lista_visualizzazione_2 = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=False)
 
         # Riga 3: Implementare la parte di ricerca del cammino minimo
-        # TODO
+        self.pulsante_cammino_minimo = ft.ElevatedButton("Cammino Minimo", width=200,
+                                                         on_click = self.controller.handle_cammino_minimo if self.controller else None,disabled=True)
+        row3 = ft.Row([self.pulsante_cammino_minimo], alignment=ft.MainAxisAlignment.CENTER)
+        self.lista_visualizzazione_3 = ft.ListView(expand=1, spacing=10, padding=20, auto_scroll=False)
 
         # --- Toggle Tema ---
         self.toggle_cambia_tema = ft.Switch(label="Tema scuro", value=True, on_change=self.cambia_tema)
@@ -69,7 +72,8 @@ class View:
             ft.Divider(),
 
             # Implementare la parte di ricerca del cammino minimo
-            # TODO
+            row3,
+            self.lista_visualizzazione_3
         )
 
         self.page.scroll = "adaptive"

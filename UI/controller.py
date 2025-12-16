@@ -26,6 +26,8 @@ class Controller:
         )
         min_p, max_p = self._model.get_edges_weight_min_max()
         self._view.lista_visualizzazione_1.controls.append(ft.Text(f"Peso min: {min_p:.2f}, Peso max: {max_p:.2f}"))
+        self._view.pulsante_cammino_minimo.disabled = False
+        self._view.pulsante_conta_archi.disabled = False
         self._view.page.update()
 
     def handle_conta_archi(self, e):
@@ -47,5 +49,13 @@ class Controller:
         self._view.page.update()
 
     """Implementare la parte di ricerca del cammino minimo"""
-    # TODO
-
+    def handle_cammino_minimo(self,e):
+        try:
+            lista_rifugi= self._model.calcolo_cammino_minimo(float(self._view.txt_soglia.value))
+            self._view.lista_visualizzazione_3.controls.clear()
+            for rifugio1,rifugio2,peso in lista_rifugi:
+                self._view.lista_visualizzazione_3.controls.append(
+                    ft.Text(f"{rifugio1} --> {rifugio2} [peso: {peso}]"))
+            self._view.page.update()
+        except:
+            self._view.show_alert("ERRORE")
